@@ -41,13 +41,13 @@ cd <your-new-repo>
 ### 3. 配置分支策略
 
 ```bash
-# 创建 dev 分支
-git checkout -b dev
-git push -u origin dev
+# 创建个人分支（每人一个）
+git checkout -b user/weishao
+git push -u origin user/weishao
 
-# 保护 main 和 dev 分支（GitHub Settings → Branches）
+# 保护 main 分支（GitHub Settings → Branches）
 # - Require PR before merging
-# - Require approvals: 1 (dev) / 2 (main)
+# - Require approvals: 1
 ```
 
 ### 4. 初始化团队配置
@@ -78,22 +78,26 @@ git push -u origin dev
 ### 5. 创建第一个任务
 
 ```bash
+# 切换到个人分支
+git checkout user/weishao
+
 # 使用脚本（推荐）
-git checkout dev
-git checkout -b feature/TASK-001-项目启动
 ./scripts/create-task.sh TASK-001 "项目启动" @张三
 
-# 推送分支
-git push -u origin feature/TASK-001-项目启动
+# 提交并推送
+git add tasks/TASK-001/
+git commit -m "[TASK-001] init: 任务创建"
+git push -u origin user/weishao
 ```
 
 ### 6. 创建 Pull Request
 
 1. 打开 GitHub 仓库页面
 2. 点击 **"Compare & pull request"**
-3. 填写 PR 信息
-4. 邀请评审人
-5. 合并后删除分支
+3. 选择分支：`user/weishao` → `main`
+4. 填写 PR 信息
+5. 邀请评审人
+6. 合并后保留个人分支（下次继续用）
 
 ### 7. 配置自动化
 
