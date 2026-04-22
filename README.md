@@ -45,6 +45,13 @@ octo-collab/
 git clone <repo-url>
 cd octo-collab
 
+# 创建 dev 分支（保护主分支）
+git checkout -b dev
+git push -u origin dev
+
+# 创建任务分支
+git checkout -b feature/TASK-001-任务名称
+
 # 创建任务目录
 ./scripts/create-task.sh TASK-001 "任务名称" @负责人
 ```
@@ -57,7 +64,7 @@ cd octo-collab
 ### 3. 日常流程
 
 ```
-晨会 → 更新任务状态 → 提交代码/文档 → PR 评审 → 合并
+晨会 → 创建分支 → 开发 → 提交 → PR 评审 → 合并 → 删除分支
 ```
 
 ---

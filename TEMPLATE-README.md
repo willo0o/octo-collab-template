@@ -38,7 +38,19 @@ git clone <your-new-repo-url>
 cd <your-new-repo>
 ```
 
-### 3. 初始化团队配置
+### 3. 配置分支策略
+
+```bash
+# 创建 dev 分支
+git checkout -b dev
+git push -u origin dev
+
+# 保护 main 和 dev 分支（GitHub Settings → Branches）
+# - Require PR before merging
+# - Require approvals: 1 (dev) / 2 (main)
+```
+
+### 4. 初始化团队配置
 
 #### 登记人员
 编辑 `people/roles.md`：
@@ -63,17 +75,27 @@ cd <your-new-repo>
 **状态**: 🟢 在线
 ```
 
-### 4. 创建第一个任务
+### 5. 创建第一个任务
 
 ```bash
 # 使用脚本（推荐）
+git checkout dev
+git checkout -b feature/TASK-001-项目启动
 ./scripts/create-task.sh TASK-001 "项目启动" @张三
 
-# 或手动复制示例
-cp -r tasks/TASK-001-example tasks/TASK-001-项目启动
+# 推送分支
+git push -u origin feature/TASK-001-项目启动
 ```
 
-### 5. 配置自动化
+### 6. 创建 Pull Request
+
+1. 打开 GitHub 仓库页面
+2. 点击 **"Compare & pull request"**
+3. 填写 PR 信息
+4. 邀请评审人
+5. 合并后删除分支
+
+### 7. 配置自动化
 
 #### GitHub Actions
 1. 进入仓库 **Settings → Actions**
