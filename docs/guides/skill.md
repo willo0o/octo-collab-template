@@ -151,25 +151,7 @@ git commit -m "[TASK-XXX] init: 任务初始化"
 git push
 ```
 
-### 工作流 2: 会议纪要生成
-
-```python
-# 伪代码：会议中自动记录
-def on_group_message(msg):
-    if is_meeting_context(msg):
-        append_to_meeting_note({
-            "time": msg.timestamp,
-            "sender": msg.sender,
-            "content": msg.text,
-            "type": detect_type(msg)  # decision/action/discussion
-        })
-    
-    if is_decision(msg):
-        update_decisions_md(msg)
-        extract_action_items(msg)
-```
-
-### 工作流 3: 风险预警
+### 工作流 2: 风险预警
 
 ```python
 def check_deadlines():
