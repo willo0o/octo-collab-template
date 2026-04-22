@@ -135,7 +135,19 @@ git commit -m "[TASK-XXX] init: 任务初始化"
 git push
 ```
 
-### 工作流 2: 风险预警
+### 工作流 2: 更新任务进展
+
+```bash
+# 使用脚本快速提交
+./scripts/update-task.sh TASK-001 "完成用户登录功能"
+
+# 或手动提交
+git add tasks/TASK-001/
+git commit -m "[TASK-001] update: 完成用户登录功能"
+git push
+```
+
+### 工作流 3: 风险预警
 
 ```python
 def check_deadlines():
