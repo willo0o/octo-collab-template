@@ -1,0 +1,36 @@
+name: 截止日提醒
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 每天 UTC 0 点 = 北京时间 8 点
+  workflow_dispatch:
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: 检查即将截止任务
+        run: |
+          echo "## ⏰ 截止日检查" >> $GITHUB_STEP_SUMMARY
+          today=$(date +%s)
+          
+          for dir in tasks/TASK-*/; do
+            if [ -f "$dir/brief.md" ]; then
+              task_name=$(basename "$dir")
+              deadline=$(grep "**截止**:" "$dir/brief.md" | cut -d':' -f2 | xargs)
+              status=$(grep "**状态**:" "$dir/brief.md" | cut -d':' -f2 | xargs)
+              
+              if [ "$status" != "✅ 已完成" ]; then
+                deadline_ts=$(date -d "$deadline" +%s 2>/dev/null || echo "0")
+                days_left=$(( (deadline_ts - today) / 86400 ))
+                
+                if [ $days_left -le 3 ] && [ $days_left -ge 0 ]; then
+                  echo "⚠️ **$task_name**: 剩余 $days_left 天 (截止：$deadline)" >> $GITHUB_STEP_SUMMARY
+                elif [ $days_left -lt 0 ]; then
+                  echo "🚨 **$task_name**: 已逾期 $(( -days_left )) 天 (截止：$deadline)" >> $GITHUB_STEP_SUMMARY
+                fi
+              fi
+            fi
+          done

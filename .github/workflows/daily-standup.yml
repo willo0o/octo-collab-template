@@ -1,0 +1,37 @@
+name: 每日站会报告
+
+on:
+  schedule:
+    - cron: '0 1 * * *'  # 每天 UTC 1 点 = 北京时间 9 点
+  workflow_dispatch:      # 支持手动触发
+
+jobs:
+  standup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: 汇总任务进展
+        run: |
+          echo "## 📊 OCTO 每日站会报告" >> $GITHUB_STEP_SUMMARY
+          echo "**日期**: $(date +%Y-%m-%d)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          echo "### 🎯 任务状态总览" >> $GITHUB_STEP_SUMMARY
+          for dir in tasks/TASK-*/; do
+            if [ -f "$dir/brief.md" ]; then
+              task_name=$(basename "$dir")
+              status=$(grep "**状态**:" "$dir/brief.md" | cut -d':' -f2 | xargs)
+              owner=$(grep "**负责人**:" "$dir/brief.md" | cut -d':' -f2 | xargs)
+              echo "- **$task_name**: $status (负责人：$owner)" >> $GITHUB_STEP_SUMMARY
+            fi
+          done
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### ⚠️ 即将截止任务" >> $GITHUB_STEP_SUMMARY
+          # 检查截止日逻辑可在此扩展
+      
+      - name: 发送到群聊（可选）
+        run: |
+          # 此处可集成 DMWork/Feishu API 发送报告
+          echo "报告已生成，可配置自动发送到 OCTO 群"
