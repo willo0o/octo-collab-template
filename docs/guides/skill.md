@@ -34,11 +34,13 @@ description: Git-based human-agent collaboration skill for group chats. Use when
 ```
 <repo-name>/
 ├── tasks/                      # 任务目录（每任务一文件夹）
-│   └── TASK-XXX-名称/
-│       ├── brief.md           # 任务简报
-│       ├── checklist.md       # 检查清单
-│       ├── decisions.md       # 决策记录
-│       └── deliverables/      # 交付物
+│   ├── TASK-XXX-名称-@Owner/  # 目录含 Owner 名字
+│   │   ├── brief.md
+│   │   ├── checklist.md
+│   │   ├── decisions.md
+│   │   └── deliverables/
+│   └── done/                   # 已完成任务归档
+│       └── TASK-XXX-名称-@Owner/
 │
 ├── docs/                       # 协作文档
 │   ├── meeting-notes/         # 会议纪要
@@ -58,9 +60,13 @@ description: Git-based human-agent collaboration skill for group chats. Use when
 
 ### 3. 人员识别
 
+**⚠️ 重要：人员信息必须从当前群聊获取**
+- ❌ 禁止混淆不同群的成员
+- ✅ 只注册实际在群内的人类成员
+
 首次加入群时：
-1. 在 `people/roles.md` 中登记群成员信息
-2. 记录关键成员的 sender_id 或 user_id
+1. 从**当前群聊历史**中提取成员信息（姓名、sender_id）
+2. 在 `people/roles.md` 中登记**本群**成员信息
 3. 在 `agents/registry.md` 中注册自己
 
 ---
@@ -91,11 +97,11 @@ description: Git-based human-agent collaboration skill for group chats. Use when
 ### 工作流 1: 创建新任务
 
 ```bash
-# 1. 创建任务目录
-mkdir -p tasks/TASK-XXX-任务名称/{deliverables}
+# 1. 创建任务目录（含 Owner 名字）
+mkdir -p tasks/TASK-XXX-任务名称-@Owner/{deliverables}
 
 # 2. 初始化 brief.md
-cat > tasks/TASK-XXX-任务名称/brief.md <<EOF
+cat > tasks/TASK-XXX-任务名称-@Owner/brief.md <<EOF
 # TASK-XXX: [任务名称]
 
 **负责人**: @某人
@@ -113,7 +119,7 @@ cat > tasks/TASK-XXX-任务名称/brief.md <<EOF
 EOF
 
 # 3. 创建 checklist.md
-cat > tasks/TASK-XXX-任务名称/checklist.md <<EOF
+cat > tasks/TASK-XXX-任务名称-@Owner/checklist.md <<EOF
 # TASK-XXX 检查清单
 
 ## 准备阶段
@@ -126,11 +132,13 @@ cat > tasks/TASK-XXX-任务名称/checklist.md <<EOF
 
 ## 收尾阶段
 - [ ] 验收标准达成
-- [ ] 文档归档
+- [ ] 文档归档（deliverables/xxx.md）
+- [ ] 任务目录移至 `tasks/done/`
+- [ ] Git 提交推送完成
 EOF
 
 # 4. 提交
-git add tasks/TASK-XXX-任务名称/
+git add tasks/TASK-XXX-任务名称-@Owner/
 git commit -m "[TASK-XXX] init: 任务初始化"
 git push
 ```
@@ -192,6 +200,24 @@ def check_deadlines():
 - 状态（🟢🟡🔵✅）
 - 目标（一句话）
 - 验收标准（检查清单）
+
+### 交付物归档
+
+所有任务产出必须写入 `tasks/TASK-XXX-名称-@Owner/deliverables/` 目录。
+
+**命名规范**：`类型 - 名称.md`（如 `诗歌-Arist 自白.md`）
+
+**禁止**：只在群聊输出，不存档到 Git。
+
+### 已完成任务归档
+
+任务完成后，将整个任务目录移至 `tasks/done/`：
+```bash
+mv tasks/TASK-XXX-任务名称-@Owner tasks/done/
+git add tasks/done/TASK-XXX-任务名称-@Owner
+git commit -m "[TASK-XXX] done: 任务完成归档"
+git push
+```
 
 ---
 
