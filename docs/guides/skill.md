@@ -1,21 +1,20 @@
-# Skill: Git 人虾协作
+---
+name: octo-git-collab
+description: Git-based human-agent collaboration skill for group chats. Use when teams (mixed humans + AI agents) need to collaborate via Git for: (1) task tracking and management, (2) document collaboration, (3) meeting notes and decision records, (4) cross-project coordination. Triggers when users mention Git collaboration, task management in group chats, or when joining a new collaboration group that uses Git-based workflows.
+---
 
-> 通用人虾协作技能 · 适用于任何群聊的 Git 协作场景
+# Git 人虾协作技能
 
-**版本**: v2.0  
-**创建**: 2026-04-22  
-**作者**: Arist @ 威少  
-**适用**: 任何人虾混合群的协作场景
+> 通用人虾协作 · 适用于任何群聊的 Git 协作场景
 
 ---
 
 ## 🎯 技能目标
 
-让学会此 Skill 的龙虾掌握在任何群聊中使用 Git 进行人虾协作的完整工作流，包括：
+让学会此 Skill 的龙虾掌握在任何群聊中使用 Git 进行人虾协作的完整工作流：
 - 任务跟踪管理
 - 文档协作规范
-- 会议纪要自动生成
-- 状态同步与风险预警
+- 风险预警
 
 ---
 
@@ -30,13 +29,13 @@
 
 ## 🏗️ 核心知识
 
-### 1. 仓库结构认知
+### 1. 仓库结构
 
 ```
 <repo-name>/
 ├── tasks/                      # 任务目录（每任务一文件夹）
 │   └── TASK-XXX-名称/
-│       ├── brief.md           # 必读：任务简报
+│       ├── brief.md           # 任务简报
 │       ├── checklist.md       # 检查清单
 │       ├── decisions.md       # 决策记录
 │       └── deliverables/      # 交付物
@@ -51,7 +50,7 @@
 └── README.md                   # 协作总纲
 ```
 
-### 2. 任务状态流转
+### 2. 任务状态
 
 ```
 🟢 待开始 → 🟡 进行中 → 🔵 待评审 → ✅ 已完成
@@ -59,20 +58,10 @@
 
 ### 3. 人员识别
 
-**首次加入群时**：
+首次加入群时：
 1. 在 `people/roles.md` 中登记群成员信息
 2. 记录关键成员的 sender_id 或 user_id
 3. 在 `agents/registry.md` 中注册自己
-
-**示例**：
-```markdown
-## 👥 人类成员
-
-| 姓名 | user_id | 角色 | 职责 |
-|------|---------|------|------|
-| 张三 | xxx | 发起人 | 方向决策 |
-| 李四 | xxx | 执行者 | 任务执行 |
-```
 
 ---
 
@@ -83,22 +72,17 @@
 | 场景 | 触发条件 | 龙虾行动 |
 |------|---------|---------|
 | **任务创建** | 群内宣布新任务 | ① 创建任务目录 ② 初始化模板 ③ 登记到 agents/registry.md |
-| **会议进行** | 检测到会议关键词 | ① 自动记录纪要 ② 提取决策和行动项 ③ 生成会议文档 |
-| **状态更新** | 任务文件变更 | ① 更新 agents/availability.md ② 推送进度通知（如被@） |
 | **风险预警** | 截止日<3 天或逾期 | @负责人 + 任务 Owner 提醒 |
-| **每日站会** | 可配置时间 | 汇总各任务进展，生成报告 |
 
-### 响应协议（通用版）
+### 响应协议
 
 #### 当被@时
-1. 第一时间回应（可选自定义问候语）
+1. 第一时间回应（问候语可由群内协商决定）
 2. 响应具体要求
 
 #### 当未被@时
 - 群内消息：阅读但不回复（NO_REPLY）
 - 静默更新文档和状态
-
-**注意**：问候语可由群内成员协商决定，无需固定格式。
 
 ---
 
@@ -110,7 +94,7 @@
 # 1. 创建任务目录
 mkdir -p tasks/TASK-XXX-任务名称/{deliverables}
 
-# 2. 初始化任务文件
+# 2. 初始化 brief.md
 cat > tasks/TASK-XXX-任务名称/brief.md <<EOF
 # TASK-XXX: [任务名称]
 
@@ -128,7 +112,7 @@ cat > tasks/TASK-XXX-任务名称/brief.md <<EOF
 - [ ] 标准 2
 EOF
 
-# 3. 创建检查清单
+# 3. 创建 checklist.md
 cat > tasks/TASK-XXX-任务名称/checklist.md <<EOF
 # TASK-XXX 检查清单
 
@@ -183,22 +167,9 @@ def check_deadlines():
 **示例**:
 ```
 [TASK-001] init: 任务初始化
-[TASK-001] feat: 添加用户登录功能
 [TASK-001] docs: 更新 API 文档
-[TASK-001] status: 进行中 → 待评审
 [MEETING] 2026-04-22 同步纪要
-[CHORE] 心跳更新
 ```
-
-### 会议纪要模板
-
-位置：`docs/meeting-notes/YYYY-MM-DD-meeting.md`
-
-必须包含：
-- 参会人员名单
-- 关键决策（表格形式）
-- 行动项（表格形式，含负责人和截止日）
-- 讨论纪要（按议题）
 
 ### 任务简报必填字段
 
@@ -209,25 +180,6 @@ def check_deadlines():
 - 状态（🟢🟡🔵✅）
 - 目标（一句话）
 - 验收标准（检查清单）
-
----
-
-## 🎓 学习检查
-
-学会本 Skill 后，龙虾应能回答：
-
-1. 新任务创建后，需要初始化哪 4 个文件？
-2. 会议中检测到决策时，应记录到哪里？
-3. 如何识别群内成员身份？
-4. 任务状态有哪 4 种？流转顺序？
-5. 提交信息 `[TASK-001] docs: 更新文档` 符合规范吗？
-
-**答案**:
-1. brief.md, checklist.md, decisions.md, deliverables/目录
-2. tasks/TASK-XXX/decisions.md + 会议纪要文档
-3. 在 `people/roles.md` 中登记 user_id 进行识别
-4. 🟢待开始 → 🟡进行中 → 🔵待评审 → ✅已完成
-5. 符合
 
 ---
 
@@ -246,30 +198,25 @@ def check_deadlines():
 - ✅ 小步提交，频繁 push
 - ✅ 行动项必须含负责人和截止日
 - ✅ 决策立即记录，不依赖记忆
-- ✅ 每小时更新心跳状态
 - ✅ 首次加入群时先登记人员信息
 
 ---
 
 ## 🔧 工具与脚本
 
-### 推荐脚本
-
-在 `scripts/` 目录下创建自动化脚本（根据需求自选）：
+### 脚本
 
 ```bash
 scripts/
 └── create-task.sh        # 创建任务（已提供）
 ```
 
-### GitHub Actions 配置
+### GitHub Actions（可选）
 
 位置：`.github/workflows/`
 
-**可选工作流**:
-1. `daily-standup.yml` - 每日站会报告
-2. `deadline-reminder.yml` - 截止日提醒
-3. `pr-labeler.yml` - PR 自动标签
+- `daily-standup.yml` - 每日站会报告
+- `deadline-reminder.yml` - 截止日提醒
 
 根据群需求配置，非必需。
 
@@ -288,7 +235,7 @@ scripts/
 ### ❌ 不适合
 
 - 纯人类团队（无 AI 参与）
-- 代码开发和软件发布（应使用专业开发流程）
+- 代码开发和软件发布
 - 需要复杂 CI/CD 的场景
 
 ---
@@ -296,20 +243,11 @@ scripts/
 ## 📖 参考文档
 
 - [GitHub 模板仓库](https://github.com/willo0o/octo-collab-template) - 一键创建协作空间
-- [轻量分支协作指南](../tasks/octo-git-collab/docs/guides/lightweight-branch-guide.md) - 分支策略
-- [任务创建指南](../tasks/octo-git-collab/docs/guides/task-setup.md) - 快速上手
+- [轻量分支协作指南](../tasks/octo-git-collab/docs/guides/lightweight-branch-guide.md)
+- [任务创建指南](../tasks/octo-git-collab/docs/guides/task-setup.md)
 
 ---
 
-## 🔄 版本历史
-
-| 版本 | 日期 | 变更 |
-|------|------|------|
-| v1.0 | 2026-04-22 | 初始版本（OCTO 专用） |
-| v2.0 | 2026-04-22 | 通用化改造，适用于任何群聊 |
-
----
-
-**Skill 维护者**: 社区共同维护  
-**问题反馈**: 提交 Issue 到模板仓库  
+**版本**: v2.0  
+**维护者**: 社区共同维护  
 **模板地址**: https://github.com/willo0o/octo-collab-template
