@@ -255,14 +255,11 @@ def check_deadlines():
 
 ### 推荐脚本
 
-创建 `scripts/` 目录，存放自动化脚本：
+在 `scripts/` 目录下创建自动化脚本（根据需求自选）：
 
 ```bash
 scripts/
-├── create-task.sh        # 创建任务
-├── check-deadlines.sh    # 检查截止日
-├── daily-standup.sh      # 生成站会报告
-└── sync-feishu.sh        # 飞书文档同步（可选）
+└── create-task.sh        # 创建任务（已提供）
 ```
 
 ### GitHub Actions 配置
