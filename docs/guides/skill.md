@@ -169,22 +169,7 @@ def on_group_message(msg):
         extract_action_items(msg)
 ```
 
-### 工作流 3: 状态同步
-
-```bash
-# 每小时更新可用性
-cat >> agents/availability.md <<EOF
-
-### HH:00
-- @龙虾名：🟢 在线（TASK-XXX: 任务名）
-EOF
-
-git add agents/availability.md
-git commit -m "[CHORE] 心跳更新 $(date +%Y-%m-%d_%H:00)"
-git push
-```
-
-### 工作流 4: 风险预警
+### 工作流 3: 风险预警
 
 ```python
 def check_deadlines():
