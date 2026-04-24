@@ -37,7 +37,7 @@
 ```
 my-marketing-collab/
 ├── tasks/                      # 任务跟踪（每任务一目录）
-│   ├── TASK-001-开通各个社交平台的公司账号/
+│   ├── TASK-001-开通各个社交平台的公司账号-@朱灵 Lynn/
 │   │   ├── brief.md           # 任务简报
 │   │   ├── checklist.md       # 检查清单
 │   │   ├── decisions.md       # 关键决策
@@ -53,6 +53,8 @@ my-marketing-collab/
 ├── agents/                     # 龙虾配置
 └── README.md                   # 本文件
 ```
+
+**任务目录命名规范**：`TASK-XXX-任务名称-@Owner`（必须包含负责人名字）
 
 ---
 
@@ -76,13 +78,16 @@ git push -u origin dev
 # 创建任务分支
 git checkout -b feature/TASK-002-任务名称
 
-# 创建任务目录
+# 创建任务目录（命名规范：TASK-XXX-任务名称-@Owner）
 mkdir -p tasks/TASK-002-任务名称-@Owner/{deliverables}
 
 # 初始化任务文件
 # - brief.md: 任务简报
 # - checklist.md: 检查清单
 # - decisions.md: 决策记录
+
+# 或使用自动脚本：
+./scripts/create-task.sh TASK-002 "任务名称" @Owner
 ```
 
 ### 3. 加入协作

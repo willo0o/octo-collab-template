@@ -15,8 +15,15 @@
 
 ### 步骤 1: 创建目录结构
 
+**命名规范**：`TASK-XXX-任务名称-@Owner`（必须包含 Owner 名字）
+
 ```bash
-mkdir -p tasks/TASK-002-任务名称/deliverables
+mkdir -p tasks/TASK-002-任务名称-@Owner/deliverables
+```
+
+**示例**：
+```bash
+mkdir -p tasks/TASK-002-用户登录功能 -@威少/deliverables
 ```
 
 ### 步骤 2: 初始化 brief.md
@@ -24,7 +31,7 @@ mkdir -p tasks/TASK-002-任务名称/deliverables
 复制 `tasks/TASK-001-example/brief.md` 为模板：
 
 ```bash
-cp tasks/TASK-001-example/brief.md tasks/TASK-002-任务名称/brief.md
+cp tasks/TASK-001-example/brief.md tasks/TASK-002-任务名称-@Owner/brief.md
 ```
 
 然后编辑必填字段：
@@ -40,13 +47,13 @@ cp tasks/TASK-001-example/brief.md tasks/TASK-002-任务名称/brief.md
 ### 步骤 3: 初始化 checklist.md
 
 ```bash
-cp tasks/TASK-001-example/checklist.md tasks/TASK-002-任务名称/checklist.md
+cp tasks/TASK-001-example/checklist.md tasks/TASK-002-任务名称-@Owner/checklist.md
 ```
 
 ### 步骤 4: 创建 decisions.md
 
 ```bash
-cat > tasks/TASK-002-任务名称/decisions.md <<EOF
+cat > tasks/TASK-002-任务名称-@Owner/decisions.md <<EOF
 # 关键决策记录
 
 ## YYYY-MM-DD
@@ -61,7 +68,7 @@ EOF
 ### 步骤 5: 提交
 
 ```bash
-git add tasks/TASK-002-任务名称/
+git add tasks/TASK-002-任务名称-@Owner/
 git commit -m "[TASK-002] init: 任务初始化"
 git push
 ```
@@ -76,6 +83,7 @@ git push
 - [ ] checklist.md 已创建
 - [ ] decisions.md 已创建
 - [ ] deliverables/ 目录已创建
+- [ ] **任务目录命名包含 Owner 名字**（TASK-XXX-任务名称-@Owner）
 - [ ] Git 提交并推送
 
 ---
