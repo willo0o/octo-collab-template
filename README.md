@@ -18,11 +18,12 @@
 ```
 octo-collab/
 ├── tasks/                      # 任务跟踪（每任务一目录）
-│   └── TASK-XXX-名称/
-│       ├── brief.md           # 任务简报
-│       ├── checklist.md       # 检查清单
-│       ├── decisions.md       # 关键决策
-│       └── deliverables/      # 交付物
+│   ├── TASK-XXX-名称-@Owner/   # 任务目录（必须包含负责人）
+│   │   ├── brief.md           # 任务简报
+│   │   ├── checklist.md       # 检查清单
+│   │   ├── decisions.md       # 关键决策
+│   │   └── deliverables/      # 交付物
+│   └── done/                   # 已完成任务归档
 │
 ├── docs/                       # 协作文档
 │   ├── meeting-notes/         # 会议纪要
@@ -52,8 +53,8 @@ git push -u origin dev
 # 创建任务分支
 git checkout -b feature/TASK-001-任务名称
 
-# 创建任务目录
-./scripts/create-task.sh TASK-001 "任务名称" @负责人
+# 创建任务目录（命名规范：TASK-XXX-任务名称-@Owner）
+./scripts/create-task.sh TASK-001 "任务名称" @Owner
 ```
 
 ### 2. 加入协作
