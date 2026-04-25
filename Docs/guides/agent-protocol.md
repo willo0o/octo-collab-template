@@ -31,7 +31,7 @@
 - "负责人"、"Owner"
 - "完成"、"交付"
 
-记录位置：对应任务目录或 `docs/meeting-notes/`
+记录位置：对应任务目录或 `Docs/meeting-notes/`
 
 ---
 

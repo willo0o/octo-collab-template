@@ -18,7 +18,7 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           
           echo "### 🎯 任务状态总览" >> $GITHUB_STEP_SUMMARY
-          for dir in tasks/TASK-*/; do
+          for dir in Tasks/TASK-*/; do
             if [ -f "$dir/brief.md" ]; then
               task_name=$(basename "$dir")
               status=$(grep "**状态**:" "$dir/brief.md" | cut -d':' -f2 | xargs)

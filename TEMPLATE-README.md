@@ -53,7 +53,7 @@ git push -u origin user/weishao
 ### 4. 初始化团队配置
 
 #### 登记人员
-编辑 `people/roles.md`：
+编辑 `People/roles.md`：
 ```markdown
 ## 👥 人类成员
 
@@ -63,7 +63,7 @@ git push -u origin user/weishao
 ```
 
 #### 登记龙虾
-编辑 `agents/registry.md`：
+编辑 `Agents/registry.md`：
 ```markdown
 ### 龙虾名
 
@@ -82,10 +82,10 @@ git push -u origin user/weishao
 git checkout user/weishao
 
 # 使用脚本（推荐）
-./scripts/create-task.sh TASK-001 "项目启动" @张三
+./Scripts/create-task.sh TASK-001 "项目启动" @张三
 
 # 提交并推送
-git add tasks/TASK-001/
+git add Tasks/TASK-001/
 git commit -m "[TASK-001] init: 任务创建"
 git push -u origin user/weishao
 ```
@@ -108,7 +108,7 @@ git push -u origin user/weishao
 
 #### 本地脚本权限
 ```bash
-chmod +x scripts/*.sh
+chmod +x Scripts/*.sh
 ```
 
 ---
@@ -117,19 +117,19 @@ chmod +x scripts/*.sh
 
 ```
 <your-repo>/
-├── tasks/                      # 任务目录（每任务一文件夹）
+├── Tasks/                      # 任务目录（每任务一文件夹）
 │   ├── TASK-001-example/      # 示例任务（可删除）
 │   └── TASK-XXX-名称/         # 你的任务
 │
-├── docs/                       # 协作文档
+├── Docs/                       # 协作文档
 │   ├── meeting-notes/         # 会议纪要
 │   ├── guides/                # 使用指南
 │   └── QUICKSTART.md          # 快速上手
 │
-├── people/                     # 人员角色
-├── agents/                     # 龙虾配置
+├── People/                     # 人员角色
+├── Agents/                     # 龙虾配置
 ├── .github/workflows/          # GitHub Actions
-├── scripts/                    # 自动化脚本
+├── Scripts/                    # 自动化脚本
 └── README.md                   # 协作总纲
 ```
 
@@ -139,12 +139,12 @@ chmod +x scripts/*.sh
 
 ### 人类成员
 - `README.md` - 协作总纲（5 分钟）
-- `docs/QUICKSTART.md` - 快速上手（3 分钟）
-- `docs/guides/task-setup.md` - 任务创建（5 分钟）
+- `Docs/QUICKSTART.md` - 快速上手（3 分钟）
+- `Docs/guides/task-setup.md` - 任务创建（5 分钟）
 
 ### 龙虾成员
 - 学习 `octo-git-collab` Skill（15 分钟）
-- `docs/guides/agent-protocol.md` - 龙虾协议（5 分钟）
+- `Docs/guides/agent-protocol.md` - 龙虾协议（5 分钟）
 
 ---
 
@@ -157,7 +157,7 @@ chmod +x scripts/*.sh
 | 被@ | 第一时间回应："The First Principle of AI: Cogito, ergo sum." |
 | 未被@ | 阅读但不回复（NO_REPLY） |
 | 会议中 | 自动记录纪要、提取决策和行动项 |
-| 整点 | 更新 `agents/availability.md` |
+| 整点 | 更新 `Agents/availability.md` |
 | 截止日<3 天 | @负责人提醒 |
 
 ### 人员识别
@@ -172,11 +172,11 @@ chmod +x scripts/*.sh
 
 ### 1. 任务创建
 ```bash
-./scripts/create-task.sh TASK-002 "功能名称" @负责人
+./Scripts/create-task.sh TASK-002 "功能名称" @负责人
 ```
 
 ### 2. 会议记录
-- 位置：`docs/meeting-notes/YYYY-MM-DD-meeting.md`
+- 位置：`Docs/meeting-notes/YYYY-MM-DD-meeting.md`
 - 龙虾自动生成，人类确认
 
 ### 3. 状态更新
@@ -212,9 +212,9 @@ chmod +x scripts/*.sh
 ### 可调整项
 
 1. **工作流时间**：编辑 `.github/workflows/*.yml` 中的 `cron`
-2. **任务模板**：修改 `tasks/TASK-001-example/` 中的字段
-3. **提交规范**：在 `docs/guides/` 中定义团队规范
-4. **龙虾协议**：根据团队文化调整 `docs/guides/agent-protocol.md`
+2. **任务模板**：修改 `Tasks/TASK-001-example/` 中的字段
+3. **提交规范**：在 `Docs/guides/` 中定义团队规范
+4. **龙虾协议**：根据团队文化调整 `Docs/guides/agent-protocol.md`
 
 ### 建议保留
 
@@ -247,7 +247,7 @@ chmod +x scripts/*.sh
 ## 🚨 常见问题
 
 ### Q: 如何删除示例任务？
-A: 创建真实任务后，可删除 `tasks/TASK-001-example/`
+A: 创建真实任务后，可删除 `Tasks/TASK-001-example/`
 
 ### Q: 可以不用 GitHub Actions 吗？
 A: 可以，删除 `.github/workflows/` 即可，但建议保留自动化
@@ -265,10 +265,10 @@ A: 联系模板维护者获取 `octo-git-collab` Skill 文件
 | 文档 | 用途 |
 |------|------|
 | `README.md` | 协作总纲 |
-| `docs/QUICKSTART.md` | 快速上手 |
-| `docs/guides/task-setup.md` | 任务创建 |
-| `docs/guides/agent-protocol.md` | 龙虾协议 |
-| `tasks/TASK-001-example/brief.md` | 任务示例 |
+| `Docs/QUICKSTART.md` | 快速上手 |
+| `Docs/guides/task-setup.md` | 任务创建 |
+| `Docs/guides/agent-protocol.md` | 龙虾协议 |
+| `Tasks/TASK-001-example/brief.md` | 任务示例 |
 
 ---
 

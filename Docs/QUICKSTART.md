@@ -13,18 +13,18 @@
 ## 📦 交付物清单
 
 ### 1. 仓库模板
-位置：`/root/.openclaw/weishao-workspace/tasks/octo-git-collab/`
+位置：`/root/.openclaw/weishao-workspace/Tasks/octo-git-collab/`
 
 ```
 ✅ README.md                      - 协作总纲
-✅ tasks/TASK-001-example/        - 示例任务（含 4 个文件）
-✅ docs/meeting-notes/            - 会议纪要模板
-✅ docs/guides/                   - 使用指南（4 篇）
-✅ people/roles.md                - 人员角色登记
-✅ agents/registry.md             - 龙虾注册表
-✅ agents/availability.md         - 龙虾心跳
+✅ Tasks/task-001-示例任务-Owner/        - 示例任务（含 4 个文件）
+✅ Docs/meeting-notes/            - 会议纪要模板
+✅ Docs/guides/                   - 使用指南（4 篇）
+✅ People/roles.md                - 人员角色登记
+✅ Agents/registry.md             - 龙虾注册表
+✅ Agents/availability.md         - 龙虾心跳
 ✅ .github/workflows/             - GitHub Actions（2 个）
-✅ scripts/create-task.sh         - 任务创建脚本
+✅ Scripts/create-task.sh         - 任务创建脚本
 ```
 
 ### 2. 龙虾 Skill
@@ -51,7 +51,7 @@
 ### 步骤 1: 初始化 Git 仓库
 
 ```bash
-cd /root/.openclaw/weishao-workspace/tasks/octo-git-collab/
+cd /root/.openclaw/weishao-workspace/Tasks/octo-git-collab/
 git init
 git add .
 git commit -m "init: OCTO 协作空间初始化"
@@ -63,20 +63,20 @@ git push -u origin main
 ### 步骤 2: 邀请成员
 
 **人类**:
-- 在 `people/roles.md` 登记信息
+- 在 `People/roles.md` 登记信息
 - 授予仓库读写权限
 
 **龙虾**:
 - 学习 `octo-git-collab` Skill
-- 在 `agents/registry.md` 注册
+- 在 `Agents/registry.md` 注册
 
 ### 步骤 3: 创建第一个真实任务
 
 ```bash
 # 使用脚本
-./scripts/create-task.sh TASK-002 "真实任务名" @负责人
+./Scripts/create-task.sh TASK-002 "真实任务名" @负责人
 
-# 或手动复制 TASK-001-example 模板
+# 或手动复制 task-001-示例任务-Owner 模板
 ```
 
 ---
@@ -94,7 +94,7 @@ git push -u origin main
 
 1. **被@**: 第一时间回应 → 执行任务
 2. **会议**: 静默记录 → 提取决策和行动项
-3. **整点**: 更新 agents/availability.md
+3. **整点**: 更新 Agents/availability.md
 4. **预警**: 发现风险 → @负责人
 
 ---
@@ -103,12 +103,12 @@ git push -u origin main
 
 ### 人类成员
 1. 阅读 `README.md`（5 分钟）
-2. 查看 `TASK-001-example/brief.md` 示例（3 分钟）
+2. 查看 `task-001-示例任务-Owner/brief.md` 示例（3 分钟）
 3. 实践创建 1 个任务（10 分钟）
 
 ### 龙虾成员
 1. 学习 `octo-git-collab` Skill（15 分钟）
-2. 阅读 `docs/guides/agent-protocol.md`（5 分钟）
+2. 阅读 `Docs/guides/agent-protocol.md`（5 分钟）
 3. 实践：创建任务 + 记录会议（20 分钟）
 
 ---
@@ -170,9 +170,9 @@ git push -u origin main
 | 需求 | 文档 |
 |------|------|
 | 整体介绍 | `README.md` |
-| 创建任务 | `docs/guides/task-setup.md` |
-| 龙虾行为 | `docs/guides/agent-protocol.md` |
-| 会议模板 | `docs/meeting-notes/YYYY-MM-DD-meeting.md` |
+| 创建任务 | `Docs/guides/task-setup.md` |
+| 龙虾行为 | `Docs/guides/agent-protocol.md` |
+| 会议模板 | `Docs/meeting-notes/YYYY-MM-DD-meeting.md` |
 | Skill 学习 | `~/.openclaw/workspace/skills/octo-git-collab/SKILL.md` |
 
 ---

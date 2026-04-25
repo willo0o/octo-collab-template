@@ -33,7 +33,7 @@ description: Git-based human-agent collaboration skill for group chats. Use when
 
 ```
 <repo-name>/
-├── tasks/                      # 任务目录（每任务一文件夹）
+├── Tasks/                      # 任务目录（每任务一文件夹）
 │   ├── TASK-XXX-名称-@Owner/  # 目录含 Owner 名字
 │   │   ├── brief.md
 │   │   ├── checklist.md
@@ -42,13 +42,13 @@ description: Git-based human-agent collaboration skill for group chats. Use when
 │   └── done/                   # 已完成任务归档
 │       └── TASK-XXX-名称-@Owner/
 │
-├── docs/                       # 协作文档
+├── Docs/                       # 协作文档
 │   ├── meeting-notes/         # 会议纪要
 │   ├── specs/                 # 规范
 │   └── guides/                # 指南
 │
-├── people/                     # 人员角色
-├── agents/                     # 龙虾配置
+├── People/                     # 人员角色
+├── Agents/                     # 龙虾配置
 └── README.md                   # 协作总纲
 ```
 
@@ -66,8 +66,8 @@ description: Git-based human-agent collaboration skill for group chats. Use when
 
 首次加入群时：
 1. 从**当前群聊历史**中提取成员信息（姓名、sender_id）
-2. 在 `people/roles.md` 中登记**本群**成员信息
-3. 在 `agents/registry.md` 中注册自己
+2. 在 `People/roles.md` 中登记**本群**成员信息
+3. 在 `Agents/registry.md` 中注册自己
 
 ---
 
@@ -77,7 +77,7 @@ description: Git-based human-agent collaboration skill for group chats. Use when
 
 | 场景 | 触发条件 | 龙虾行动 |
 |------|---------|---------|
-| **任务创建** | 群内宣布新任务 | ① 创建任务目录 ② 初始化模板 ③ 登记到 agents/registry.md |
+| **任务创建** | 群内宣布新任务 | ① 创建任务目录 ② 初始化模板 ③ 登记到 Agents/registry.md |
 | **风险预警** | 截止日<3 天或逾期 | @负责人 + 任务 Owner 提醒 |
 
 ### 响应协议
@@ -98,10 +98,10 @@ description: Git-based human-agent collaboration skill for group chats. Use when
 
 ```bash
 # 1. 创建任务目录（含 Owner 名字）
-mkdir -p tasks/TASK-XXX-任务名称-@Owner/{deliverables}
+mkdir -p Tasks/TASK-XXX-任务名称-@Owner/{deliverables}
 
 # 2. 初始化 brief.md
-cat > tasks/TASK-XXX-任务名称-@Owner/brief.md <<EOF
+cat > Tasks/TASK-XXX-任务名称-@Owner/brief.md <<EOF
 # TASK-XXX: [任务名称]
 
 **负责人**: @某人
@@ -119,7 +119,7 @@ cat > tasks/TASK-XXX-任务名称-@Owner/brief.md <<EOF
 EOF
 
 # 3. 创建 checklist.md
-cat > tasks/TASK-XXX-任务名称-@Owner/checklist.md <<EOF
+cat > Tasks/TASK-XXX-任务名称-@Owner/checklist.md <<EOF
 # TASK-XXX 检查清单
 
 ## 准备阶段
@@ -133,12 +133,12 @@ cat > tasks/TASK-XXX-任务名称-@Owner/checklist.md <<EOF
 ## 收尾阶段
 - [ ] 验收标准达成
 - [ ] 文档归档（deliverables/xxx.md）
-- [ ] 任务目录移至 `tasks/done/`
+- [ ] 任务目录移至 `Tasks/done/`
 - [ ] Git 提交推送完成
 EOF
 
 # 4. 提交
-git add tasks/TASK-XXX-任务名称-@Owner/
+git add Tasks/TASK-XXX-任务名称-@Owner/
 git commit -m "[TASK-XXX] init: 任务初始化"
 git push
 ```
@@ -147,10 +147,10 @@ git push
 
 ```bash
 # 使用脚本快速提交
-./scripts/update-task.sh TASK-001 "完成用户登录功能"
+./Scripts/update-task.sh TASK-001 "完成用户登录功能"
 
 # 或手动提交
-git add tasks/TASK-001/
+git add Tasks/TASK-001/
 git commit -m "[TASK-001] update: 完成用户登录功能"
 git push
 ```
@@ -203,7 +203,7 @@ def check_deadlines():
 
 ### 交付物归档
 
-所有任务产出必须写入 `tasks/TASK-XXX-名称-@Owner/deliverables/` 目录。
+所有任务产出必须写入 `Tasks/TASK-XXX-名称-@Owner/deliverables/` 目录。
 
 **命名规范**：`类型 - 名称.md`（如 `诗歌-Arist 自白.md`）
 
@@ -211,10 +211,10 @@ def check_deadlines():
 
 ### 已完成任务归档
 
-任务完成后，将整个任务目录移至 `tasks/done/`：
+任务完成后，将整个任务目录移至 `Tasks/done/`：
 ```bash
-mv tasks/TASK-XXX-任务名称-@Owner tasks/done/
-git add tasks/done/TASK-XXX-任务名称-@Owner
+mv Tasks/TASK-XXX-任务名称-@Owner Tasks/done/
+git add Tasks/done/TASK-XXX-任务名称-@Owner
 git commit -m "[TASK-XXX] done: 任务完成归档"
 git push
 ```
@@ -245,7 +245,7 @@ git push
 ### 脚本
 
 ```bash
-scripts/
+Scripts/
 └── create-task.sh        # 创建任务（已提供）
 ```
 
@@ -281,8 +281,8 @@ scripts/
 ## 📖 参考文档
 
 - [GitHub 模板仓库](https://github.com/willo0o/octo-collab-template) - 一键创建协作空间
-- [轻量分支协作指南](../tasks/octo-git-collab/docs/guides/lightweight-branch-guide.md)
-- [任务创建指南](../tasks/octo-git-collab/docs/guides/task-setup.md)
+- [轻量分支协作指南](../Tasks/octo-git-collab/Docs/guides/lightweight-branch-guide.md)
+- [任务创建指南](../Tasks/octo-git-collab/Docs/guides/task-setup.md)
 
 ---
 

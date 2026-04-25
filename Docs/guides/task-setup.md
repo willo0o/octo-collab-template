@@ -8,7 +8,7 @@
 
 ```bash
 # 创建任务目录并初始化
-./scripts/create-task.sh TASK-002 "任务名称" @负责人
+./Scripts/create-task.sh TASK-002 "任务名称" @负责人
 ```
 
 ## 方法 2: 手动创建
@@ -18,20 +18,20 @@
 **命名规范**：`TASK-XXX-任务名称-@Owner`（必须包含 Owner 名字）
 
 ```bash
-mkdir -p tasks/TASK-002-任务名称-@Owner/deliverables
+mkdir -p Tasks/TASK-002-任务名称-@Owner/deliverables
 ```
 
 **示例**：
 ```bash
-mkdir -p tasks/TASK-002-用户登录功能 -@威少/deliverables
+mkdir -p Tasks/TASK-002-用户登录功能 -@威少/deliverables
 ```
 
 ### 步骤 2: 初始化 brief.md
 
-复制 `tasks/TASK-001-example/brief.md` 为模板：
+复制 `Tasks/TASK-001-example/brief.md` 为模板：
 
 ```bash
-cp tasks/TASK-001-example/brief.md tasks/TASK-002-任务名称-@Owner/brief.md
+cp Tasks/TASK-001-example/brief.md Tasks/TASK-002-任务名称-@Owner/brief.md
 ```
 
 然后编辑必填字段：
@@ -47,13 +47,13 @@ cp tasks/TASK-001-example/brief.md tasks/TASK-002-任务名称-@Owner/brief.md
 ### 步骤 3: 初始化 checklist.md
 
 ```bash
-cp tasks/TASK-001-example/checklist.md tasks/TASK-002-任务名称-@Owner/checklist.md
+cp Tasks/TASK-001-example/checklist.md Tasks/TASK-002-任务名称-@Owner/checklist.md
 ```
 
 ### 步骤 4: 创建 decisions.md
 
 ```bash
-cat > tasks/TASK-002-任务名称-@Owner/decisions.md <<EOF
+cat > Tasks/TASK-002-任务名称-@Owner/decisions.md <<EOF
 # 关键决策记录
 
 ## YYYY-MM-DD
@@ -68,7 +68,7 @@ EOF
 ### 步骤 5: 提交
 
 ```bash
-git add tasks/TASK-002-任务名称-@Owner/
+git add Tasks/TASK-002-任务名称-@Owner/
 git commit -m "[TASK-002] init: 任务初始化"
 git push
 ```
@@ -103,4 +103,4 @@ A: brief.md 中负责人写主要 Owner，其他人在行动项中指定
 
 ---
 
-**参考**: [TASK-001 示例](../tasks/TASK-001-example/brief.md)
+**参考**: [TASK-001 示例](../Tasks/TASK-001-example/brief.md)

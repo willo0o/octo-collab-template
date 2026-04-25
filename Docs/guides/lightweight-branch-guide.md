@@ -58,11 +58,11 @@ git checkout user/weishao
 git pull origin main
 
 # 3. 编辑文档/创建任务
-vim tasks/TASK-001/brief.md
-vim docs/meeting-notes/2026-04-22.md
+vim Tasks/TASK-001/brief.md
+vim Docs/meeting-notes/2026-04-22.md
 
 # 4. 提交
-git add tasks/TASK-001/
+git add Tasks/TASK-001/
 git commit -m "[TASK-001] 更新任务状态为进行中"
 
 # 5. 推送
@@ -133,7 +133,7 @@ git push origin user/weishao
 |------|------|
 | 会议中 | 自动记录 → 生成纪要 → 提交到 `user/arist` |
 | 任务更新 | 检测变更 → 更新状态 → 推送 |
-| 整点 | 更新 `agents/availability.md` |
+| 整点 | 更新 `Agents/availability.md` |
 | PR 创建 | 自动检查格式 → 生成摘要 → 通知评审人 |
 
 ---
