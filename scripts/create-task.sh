@@ -1,19 +1,23 @@
 #!/bin/bash
 # create-task.sh - 快速创建任务并初始化模板
 # 用法：./create-task.sh TASK-002 "任务名称" @负责人
+# 注意：任务目录命名格式：TASK-XXX-任务名称-@Owner（必须包含 Owner 名字）
 
 set -e
 
 if [ $# -lt 3 ]; then
     echo "用法：$0 <TASK-XXX> <任务名称> @负责人"
     echo "示例：$0 TASK-002 \"用户登录功能\" @威少"
+    echo "注意：任务目录命名格式：TASK-XXX-任务名称-@Owner"
     exit 1
 fi
 
 TASK_ID=$1
 TASK_NAME=$2
 OWNER=$3
-TASK_DIR="tasks/${TASK_ID}-${TASK_NAME}"
+# 移除 @ 符号中的 @ 前缀，只保留名字
+OWNER_NAME=${OWNER#@}
+TASK_DIR="tasks/${TASK_ID}-${TASK_NAME}-@${OWNER_NAME}"
 
 echo "📦 创建任务：${TASK_ID} - ${TASK_NAME}"
 echo "👤 负责人：${OWNER}"
