@@ -15,14 +15,18 @@ fi
 
 TASK_ID=$1
 UPDATE_MSG=$2
-TASK_DIR="tasks/${TASK_ID}-"*
+TASK_DIR="Tasks/${TASK_ID}-"*
 
 # 检查任务目录是否存在
 if [ ! -d "$TASK_DIR" ]; then
-    echo "❌ 错误：任务目录不存在：tasks/${TASK_ID}-*"
+    echo "❌ 错误：任务目录不存在：Tasks/${TASK_ID}-*"
     echo "请先确认任务编号正确"
     exit 1
 fi
+
+# 同步远程最新状态（pull before push）
+echo "🔄 同步远程最新状态..."
+git pull --rebase origin "$(git rev-parse --abbrev-ref HEAD)"
 
 # 查看变更
 echo "📊 检测任务变更..."

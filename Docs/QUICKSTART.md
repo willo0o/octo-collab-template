@@ -1,83 +1,47 @@
-# OCTO Git 协作方案 - 使用总结
+# 快速配置指南
 
-> 快速上手指南 · 2026-04-22
-
----
-
-## 🎯 一句话概述
-
-用 **Git 仓库** 作为人虾协作的单一事实来源，通过 **任务目录隔离** + **文档模板** + **自动化** 实现高效协作。
+> 从模板仓库到可用协作空间的完整配置步骤
 
 ---
 
-## 📦 交付物清单
+## 🚀 初始化（首次使用）
 
-### 1. 仓库模板
-位置：`/root/.openclaw/weishao-workspace/Tasks/octo-git-collab/`
+### 步骤 1：基于模板创建仓库
 
-```
-✅ README.md                      - 协作总纲
-✅ Tasks/task-001-示例任务-Owner/        - 示例任务（含 4 个文件）
-✅ Docs/meeting-notes/            - 会议纪要模板
-✅ Docs/guides/                   - 使用指南（4 篇）
-✅ People/roles.md                - 人员角色登记
-✅ Agents/registry.md             - 龙虾注册表
-✅ Agents/availability.md         - 龙虾心跳
-✅ .github/workflows/             - GitHub Actions（2 个）
-✅ Scripts/create-task.sh         - 任务创建脚本
-```
+1. 点击顶部 **Use this template** → 填写仓库名 → 创建
+2. Clone 到本地：
+   ```bash
+   git clone <your-repo-url>
+   cd <repo-name>
+   ```
 
-### 2. 龙虾 Skill
-位置：`/root/.openclaw/workspace/skills/octo-git-collab/SKILL.md`
-
-**内容**:
-- 仓库结构认知
-- 龙虾职责与响应协议
-- 标准工作流（4 个）
-- 文档规范
-- 学习检查题
-
-**学会后能力**:
-- ✅ 独立创建任务
-- ✅ 自动生成会议纪要
-- ✅ 正确响应群消息
-- ✅ 风险预警
-- ✅ 状态同步
-
----
-
-## 🚀 快速启动（3 步）
-
-### 步骤 1: 初始化 Git 仓库
+### 步骤 2：配置分支策略（可选）
 
 ```bash
-cd /root/.openclaw/weishao-workspace/Tasks/octo-git-collab/
-git init
-git add .
-git commit -m "init: OCTO 协作空间初始化"
-# 推送到 GitHub/Gitee
-git remote add origin <repo-url>
-git push -u origin main
+git checkout -b dev
+git push -u origin dev
+# 在 GitHub Settings → Branches 设置 main 分支保护规则
 ```
 
-### 步骤 2: 邀请成员
+### 步骤 3：登记成员信息
 
-**人类**:
-- 在 `People/roles.md` 登记信息
-- 授予仓库读写权限
+- **人类**：编辑 `People/roles.md`，填写姓名和角色
+- **龙虾**：编辑 `Agents/registry.md`，注册能力；学习 `octo-git-collab` Skill
 
-**龙虾**:
-- 学习 `octo-git-collab` Skill
-- 在 `Agents/registry.md` 注册
-
-### 步骤 3: 创建第一个真实任务
+### 步骤 4：创建第一个任务
 
 ```bash
-# 使用脚本
-./Scripts/create-task.sh TASK-002 "真实任务名" @负责人
-
-# 或手动复制 task-001-示例任务-Owner 模板
+./Scripts/create-task.sh TASK-001 "任务名称" 负责人
 ```
+
+### 步骤 5：配置 GitHub Actions（可选）
+
+在 GitHub 仓库启用 Actions，按需调整 `.github/workflows/` 中的 cron 时间：
+
+| 工作流 | 默认频率 | 功能 |
+|--------|---------|------|
+| `daily-standup.yml` | 每天 09:00 | 生成站会报告 |
+| `deadline-reminder.yml` | 每天 08:00 | 检查截止日 |
 
 ---
 
@@ -85,117 +49,55 @@ git push -u origin main
 
 ### 人类成员
 
-1. **创建任务**: 群内宣布 → 运行脚本 → 填写 brief.md
-2. **更新进度**: 编辑任务文件 → Git 提交
-3. **开会**: 群内讨论 → 龙虾自动记录 → 确认纪要
-4. **验收**: 检查 deliverables/ → 更新状态为 ✅
+1. 群内宣布新任务 → `./Scripts/create-task.sh` → 填写 `brief.md`
+2. 编辑任务文件 → 立即 commit + push
+3. 开会 → 龙虾自动记录 → 确认纪要
+4. 验收交付物 → 更新状态为 ✅ → 归档到 `Tasks/done/`
 
 ### 龙虾成员
 
-1. **被@**: 第一时间回应 → 执行任务
-2. **会议**: 静默记录 → 提取决策和行动项
-3. **整点**: 更新 Agents/availability.md
-4. **预警**: 发现风险 → @负责人
+1. 被 @ → 第一时间响应 → 执行任务
+2. 会议中 → 静默记录 → 提取决策和行动项 → 归档 Git
+3. 整点 → 更新 `Agents/availability.md`
+4. 发现风险 → @负责人 预警
 
 ---
 
-## 🎓 学习路径
-
-### 人类成员
-1. 阅读 `README.md`（5 分钟）
-2. 查看 `task-001-示例任务-Owner/brief.md` 示例（3 分钟）
-3. 实践创建 1 个任务（10 分钟）
-
-### 龙虾成员
-1. 学习 `octo-git-collab` Skill（15 分钟）
-2. 阅读 `Docs/guides/agent-protocol.md`（5 分钟）
-3. 实践：创建任务 + 记录会议（20 分钟）
-
----
-
-## 🔧 自动化配置
-
-### GitHub Actions
-
-| 工作流 | 频率 | 功能 |
-|--------|------|------|
-| daily-standup.yml | 每天 9:00 | 生成站会报告 |
-| deadline-reminder.yml | 每天 8:00 | 检查截止日 |
-
-### 配置方法
-
-1. 在 GitHub 仓库启用 Actions
-2. 根据需要调整 cron 时间
-3. 可选：集成 DMWork/Feishu 发送通知
-
----
-
-## 📊 成功指标
-
-### 短期（1 周）
-- [ ] 所有成员理解仓库结构
-- [ ] 至少创建 3 个真实任务
-- [ ] 龙虾能正确响应@和静默
-
-### 中期（1 月）
-- [ ] 形成文档沉淀习惯
-- [ ] 任务逾期率下降
-- [ ] 会议纪要 100% 自动归档
-
-### 长期（1 季）
-- [ ] 知识库自然积累
-- [ ] 新人上手时间<1 小时
-- [ ] 跨任务复用率提升
-
----
-
-## 🚨 常见坑
-
-### 坑 1: 直接修改 main 分支
-**解**: 创建 feature 分支 → PR → 评审 → 合并
-
-### 坑 2: 任务目录命名冲突
-**解**: 统一格式 `TASK-XXX-简短描述`，先查现有编号
-
-### 坑 3: 龙虾过度发言
-**解**: 严格遵守响应协议，未被@时 NO_REPLY
-
-### 坑 4: 文档更新滞后
-**解**: 行动项必须含截止日，龙虾自动提醒
-
----
-
-## 📖 参考文档速查
+## 📖 指南速查
 
 | 需求 | 文档 |
 |------|------|
-| 整体介绍 | `README.md` |
-| 创建任务 | `Docs/guides/task-setup.md` |
-| 龙虾行为 | `Docs/guides/agent-protocol.md` |
-| 会议模板 | `Docs/meeting-notes/YYYY-MM-DD-meeting.md` |
-| Skill 学习 | `~/.openclaw/workspace/skills/octo-git-collab/SKILL.md` |
+| 创建和管理任务 | [guides/task-setup.md](guides/task-setup.md) |
+| 龙虾行为规范 | [guides/agent-protocol.md](guides/agent-protocol.md) |
+| 分支与提交规范 | [guides/git-workflow.md](guides/git-workflow.md) |
+| 模板仓库配置 | [guides/github-template-setup.md](guides/github-template-setup.md) |
 
 ---
 
-## 🎁 下一步建议
+## 🚨 常见问题
 
-1. **立即可做**:
-   - 在 OCTO 群演示此方案
-   - 邀请辉哥等成员登记 roles.md
-   - 创建第一个真实任务
+**Q: 直接在 main 上提交了怎么办？**
+A: 创建个人分支 → 将提交移过去 → PR → 评审 → 合并，之后保持在个人分支工作。
 
-2. **本周完成**:
-   - 配置 GitHub Actions
-   - 所有活跃龙虾学习 Skill
-   - 跑通一次完整会议记录
+**Q: 任务目录命名冲突？**
+A: 统一格式 `task-xxx-名称-Owner`，创建前 `ls Tasks/` 查现有编号。
 
-3. **优化方向**:
-   - 飞书文档双向同步
-   - 自定义 Dashboard 可视化
-   - 集成 CI/CD 自动测试
+**Q: 龙虾过度发言？**
+A: 严格遵守响应协议，未被 @ 时 NO_REPLY。
+
+**Q: 如何同步模板更新？**
+A: 在 GitHub 页面点击 Sync fork，或手动 `git pull` 模板仓库的变更。
 
 ---
 
-**创建者**: Arist @ 威少  
-**日期**: 2026-04-22  
-**版本**: v1.0
+## 🎯 成功指标
+
+| 阶段 | 指标 |
+|------|------|
+| 第 1 周 | 所有成员理解结构；至少创建 3 个真实任务；龙虾能正确响应和静默 |
+| 第 1 月 | 形成文档沉淀习惯；任务逾期率下降；会议纪要 100% 自动归档 |
+| 第 1 季 | 知识库自然积累；新人上手 < 1 小时；跨任务复用率提升 |
+
+---
+
+**维护者**: OCTO 协作组 · **更新**: 配置流程变更时
